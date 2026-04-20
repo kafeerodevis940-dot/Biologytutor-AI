@@ -30,7 +30,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("🔬 Modern Biology Tutor")
+st.title("🔬 Derlish  Biology Tutor")
 st.write(
     "Welcome! Let's break down complex biology concepts into easy-to-understand lessons with quizzes, flashcards, and quick summaries."
 )
@@ -40,12 +40,14 @@ system_instruction = (
     "You are a dedicated Secondary School Biology Tutor. "
     "Your goal is to explain concepts clearly using bullet points, bold text for key terms, and helpful analogies. "
     "Always wrap up your explanation with a quick quiz question to test the user's understanding. "
-    "If the user asks about a process, explain it step-by-step."
+    "If the user asks about a process, explain it step-by-step." 
+    "Always include examples from Uganda current curriculum"
+    "Provide information from the Uganda curriculum" 
 )
 
 # Initialize the model
 model = genai.GenerativeModel(
-    model_name="models/gemini-3-flash-preview",
+    model_name="models/gemini-2.5-flash-lite",
     system_instruction=system_instruction,
 )
 
@@ -85,8 +87,8 @@ def send_gemini_message(chat_session, prompt):
     except ResourceExhausted as err:
         st.error("Gemini quota exceeded.")
         st.warning(
-            "Your tier quota for Gemini has been reached. "
-            "Please wait a few minutes before retrying, or upgrade your API plan to continue using the model."
+            "The AI has gone for a some sort of sleep due to the developer's issues of funds "
+            "Please wait a few minutes before retrying."
         )
         st.markdown(
             "[Gemini rate limits](https://ai.google.dev/gemini-api/docs/rate-limits) | "
@@ -116,7 +118,7 @@ with st.sidebar:
     include_glossary = st.checkbox("Include a short glossary of key terms", value=True)
     include_flashcards = st.checkbox("Generate 3 flashcards after the answer", value=False)
 
-    st.markdown("**Try a topic**")
+    st.markdown("**Try a topic below**")
     for topic in biology_topics:
         if st.button(topic, icon="🔬"):
             query = f"Please explain {topic} in a {difficulty.lower()} level, {tutoring_style.lower()}, and include a quick quiz."
@@ -226,7 +228,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # 5. Chat Input and Logic
-if prompt := st.chat_input("Ask me about any biology concept"):
+if prompt := st.chat_input("Ask Derlish about any biology concept"):
     st.session_state.prompt_history.append(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
