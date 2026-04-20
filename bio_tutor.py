@@ -43,6 +43,7 @@ system_instruction = (
     "If the user asks about a process, explain it step-by-step." 
     "Always include examples from Uganda current curriculum"
     "Provide information from the Uganda curriculum" 
+    
 )
 
 # Initialize the model
@@ -249,3 +250,4 @@ if prompt := st.chat_input("Ask Derlish about any biology concept"):
         if response is not None:
             st.markdown(response.text)
             st.session_state.messages.append({"role": "assistant", "content": response.text})
+st.markdown("Click the arrows at the top to access the sidebar")
