@@ -6,7 +6,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from google.api_core.exceptions import ResourceExhausted
 
-# 1. Load the API key securely
+# 1. Loading the API key securely
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
@@ -15,7 +15,7 @@ if not api_key:
     st.error("Missing GEMINI_API_KEY. Add it to your .env file and restart the app.")
     st.stop()
 
-# 2. Configure the Gemini API
+# 2. Configuring the Gemini API
 genai.configure(api_key=api_key)
 
 # Page styling
@@ -29,13 +29,15 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
+# page title cotent
 st.title("🔬 Derlish  Biology Tutor")
 st.write(
     "Welcome! Let's break down complex biology concepts into easy-to-understand lessons with quizzes, flashcards, and quick summaries."
 )
+st.write("---")
+st.markdown("Click the arrows at the top to access the sidebar")
 
-# 3. Define the Tutor's Personality (System Instruction)
+# 3. Defining the Tutor's Personality (System Instruction)
 system_instruction = (
     "You are a dedicated Secondary School Biology Tutor. "
     "Your goal is to explain concepts clearly using bullet points, bold text for key terms, and helpful analogies. "
@@ -46,13 +48,13 @@ system_instruction = (
     
 )
 
-# Initialize the model
+# Initializing the model
 model = genai.GenerativeModel(
     model_name="models/gemini-2.5-flash-lite",
     system_instruction=system_instruction,
 )
 
-# 4. Manage Session State for Chat History
+# 4.  Session State for Chat History
 if "chat_session" not in st.session_state:
     st.session_state.chat_session = model.start_chat(history=[])
 
@@ -81,7 +83,7 @@ biology_topics = [
 ]
 
 
-
+# default message when the model hits quota error.
 def send_gemini_message(chat_session, prompt):
     try:
         return chat_session.send_message(prompt)
@@ -100,6 +102,7 @@ def send_gemini_message(chat_session, prompt):
         st.error(f"Gemini API error: {err}")
         return None
 
+# managing sidebar info
 with st.sidebar:
     st.header("BioTutor Controls")
     st.write("Use the controls to adjust difficulty, generate practice questions, and export your lesson.")
@@ -223,7 +226,7 @@ with st.sidebar:
     st.write("---")
     st.markdown("<small>Powered by Gemini AI Models and can make mistakes</small>", unsafe_allow_html=True)
 
-# Display previous messages
+# Displaying previous messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -250,4 +253,3 @@ if prompt := st.chat_input("Ask Derlish about any biology concept"):
         if response is not None:
             st.markdown(response.text)
             st.session_state.messages.append({"role": "assistant", "content": response.text})
-st.markdown("Click the arrows at the top to access the sidebar")
