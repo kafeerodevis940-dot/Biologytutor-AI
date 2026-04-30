@@ -1,0 +1,12 @@
+name: Keep BioTutor Awake
+on:
+  schedule:
+    - cron: '0 */6 * * *' #works every 6 hrs
+  workflow_dispatch:      # Allows running it manually for testing
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit App
+        run: curl -I https://biotutor-ai-dershin.streamlit.app
