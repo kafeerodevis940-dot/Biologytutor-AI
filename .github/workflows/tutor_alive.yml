@@ -1,8 +1,8 @@
 name: Keep BioTutor Awake
 on:
   schedule:
-    - cron: '0 */6 * * *' #works every 6 hrs
-  workflow_dispatch:      # Allows running it manually for testing
+    - cron: '0 */30 * * * *' 
+  workflow_dispatch:      
 
 jobs:
   ping:
