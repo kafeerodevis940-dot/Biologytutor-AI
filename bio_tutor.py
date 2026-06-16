@@ -1,9 +1,8 @@
 import os
 from datetime import datetime
-
 import streamlit as st
 import google.generativeai as genai
-from openai import OpenAI  # OpenRouter uses the standard OpenAI client
+from openai import OpenAI  
 from dotenv import load_dotenv
 
 
