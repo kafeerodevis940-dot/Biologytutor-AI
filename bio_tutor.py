@@ -1,10 +1,10 @@
 import os
+import urllib.parse
 from datetime import datetime
 import streamlit as st
 import google.generativeai as genai
 from openai import OpenAI  
 from dotenv import load_dotenv
-
 
 load_dotenv()
 
@@ -52,9 +52,8 @@ st.markdown("""
     --shadow:       0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Full Page Background Image ── */
 .stApp {
-    background-image: linear-gradient(rgba(13, 51, 32, 0.4), rgba(13, 51, 32, 0.4)), 
+    background-image: linear-gradient(rgba(13, 51, 32, 0.85), rgba(13, 51, 32, 0.85)), 
                       url('https://images.unsplash.com/photo-1546026423-cc4642628d2b?q=80&w=2574&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
@@ -206,7 +205,7 @@ SYSTEM_INSTRUCTION = (
     "Always wrap up your explanation with a quick quiz question to test the user's understanding. "
     "If the user asks about a process or diagram, explain it step-by-step. "
     "Always include examples relevant to the Uganda secondary school curriculum."
-    "You are powered by OpenAI and Gemini but created by Derek"
+    "You re powered by open ai and gemini but created by derek."
 )
 
 # ── 4. Session State ──────────────────────────────────────────────────────────
@@ -272,7 +271,7 @@ def ask_gemini_vision(image_file, prompt):
 # ── 6. Sidebar ────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## 🔬 BioTutor AI")
-    st.markdown("<small style='color:#6aaa84'>Powered by OpenRouter Free & Gemini Vision</small>", unsafe_allow_html=True)
+    st.markdown("<small style='color:#6aaa84'>Created by Derek Powered by OpenRouter Free & Gemini Vision</small>", unsafe_allow_html=True)
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
     st.markdown("#### 🖼️ Upload Biological Diagram")
@@ -341,10 +340,29 @@ with st.sidebar:
             st.session_state[k] = [] if k in ["messages", "prompt_history"] else ""
         st.rerun()
 
+    # ── New Section: Image Generation ──
+    st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
+    st.markdown("#### 🎨 Draw a Biology Diagram")
+    
+    image_prompt = st.text_input("What should I draw? (e.g., A plant cell)")
+    
+    if st.button("Generate Image"):
+        if not image_prompt:
+            st.warning("Please type what you want me to draw first.")
+        else:
+            with st.spinner(f"Drawing {image_prompt}..."):
+                # Safely encode the text for a URL
+                safe_prompt = urllib.parse.quote(image_prompt)
+                # Use a free, no-API-key image generator
+                image_url = f"https://image.pollinations.ai/prompt/{safe_prompt}?nologo=true"
+                
+                # Display the image in the sidebar
+                st.image(image_url, caption=image_prompt, use_container_width=True)
+
 # ── 7. Main Area ──────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <div class="badge">Uganda Secondary Curriculum (OpenRouter + Gemini)</div>
+    
     <h1>🔬 Derlish Biology Tutor</h1>
     <p class="sub">Explore the wonders of biology with completely free text answers and diagram recognition.</p>
 </div>
