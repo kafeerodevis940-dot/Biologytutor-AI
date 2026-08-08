@@ -62,7 +62,47 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
-    color: #ffffff;
+    color: #ffffff !important; /* Forces global text to white */
+}
+
+/* ── 1. Force Chat Messages to Pure White ── */
+[data-testid="stChatMessage"] * {
+    color: #ffffff !important;
+}
+
+/* Ensure the typing box text stays dark so you can see what you type */
+[data-testid="stChatInputContainer"] * {
+    color: #0d2016 !important; 
+}
+
+/* ── 2. Custom Red "More" Sidebar Button (Top Right) ── */
+[data-testid="collapsedControl"], 
+[data-testid="stSidebarCollapsedControl"] {
+    left: auto !important;          /* Removes default left positioning */
+    right: 15px !important;         /* Moves it to the right corner */
+    background-color: #ff3333 !important; /* Red background */
+    border-radius: 8px !important;
+    padding: 6px 16px !important;
+    width: auto !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+    z-index: 999999 !important;     /* Keeps it on top of everything */
+}
+
+/* Hides the default Streamlit arrow icon */
+[data-testid="collapsedControl"] svg, 
+[data-testid="stSidebarCollapsedControl"] svg {
+    display: none !important;
+}
+
+/* Injects the word "More" into the button */
+[data-testid="collapsedControl"]::after, 
+[data-testid="stSidebarCollapsedControl"]::after {
+    content: "More" !important;
+    color: #ffffff !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
 }
 
 #MainMenu, footer, header { visibility: hidden; }
