@@ -132,12 +132,14 @@ div[class*="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) > div:last-
 }
 
 div[class*="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) > div:last-child {
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(13, 51, 32, 0.92) !important; /* Changed to dark green */
+    color: #ffffff !important;
     border: 1.5px solid var(--green-pale) !important;
     border-radius: 18px 18px 18px 4px !important;
     padding: .9rem 1.2rem !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     max-width: 85%;
+}
 }
 
 [data-testid="stChatInputContainer"] {
