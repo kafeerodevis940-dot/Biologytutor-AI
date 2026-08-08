@@ -62,7 +62,7 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
-    color: var(--text-dark);
+    color: #ffffff;
 }
 
 #MainMenu, footer, header { visibility: hidden; }
@@ -362,8 +362,8 @@ with st.sidebar:
 # ── 7. Main Area ──────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    
-    <h1>🔬 Derlish Biology Tutor</h1>
+    <div class="badge"> Secondary Curriculum </div>
+   <h1>🔬 Derlish Biology Tutor</h1>
     <p class="sub">Explore the wonders of biology with completely free text answers and diagram recognition.</p>
 </div>
 """, unsafe_allow_html=True)
